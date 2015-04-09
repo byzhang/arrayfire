@@ -75,8 +75,8 @@ BLAS_FUNC(gemm , cdouble , double , z)
 #else
 BLAS_FUNC(gemm , float   , float , s)
 BLAS_FUNC(gemm , double  , double, d)
-BLAS_FUNC(gemm , cfloat  ,   void, c)
-BLAS_FUNC(gemm , cdouble ,   void, z)
+BLAS_FUNC(gemm , cfloat  ,   float, c)
+BLAS_FUNC(gemm , cdouble ,   double, z)
 #endif
 
 BLAS_FUNC_DEF(gemv)
@@ -88,8 +88,8 @@ BLAS_FUNC(gemv , cdouble ,  double, z)
 #else
 BLAS_FUNC(gemv , float   ,  float, s)
 BLAS_FUNC(gemv , double  , double, d)
-BLAS_FUNC(gemv , cfloat  ,   void, c)
-BLAS_FUNC(gemv , cdouble ,   void, z)
+BLAS_FUNC(gemv , cfloat  ,   float, c)
+BLAS_FUNC(gemv , cdouble ,   double, z)
 #endif
 
 BLAS_FUNC_DEF( dot )
@@ -138,7 +138,7 @@ struct cblas_types<float> {
 
 template<>
 struct cblas_types<cfloat> {
-    typedef void base_type;
+    typedef float base_type;
 };
 
 template<>
@@ -148,10 +148,10 @@ struct cblas_types<double> {
 
 template<>
 struct cblas_types<cdouble> {
-    typedef void base_type;
+    typedef double base_type;
 };
 #define BT typename cblas_types<T>::base_type
-#define REINTERPRET_CAST(PTR_TYPE, X) (X)
+#define REINTERPRET_CAST(PTR_TYPE, X) reinterpret_cast<PTR_TYPE>((X))
 #endif
 
 template<typename T>
